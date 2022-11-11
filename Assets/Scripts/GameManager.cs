@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     public static bool gameOver;
     public static bool levelComplete;
+    public static bool mute = false;
+    public static bool isGameStarted = false;
     public static int currentLevelIndex;
 
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
+    public GameObject gamePlayPanel;
+    public GameObject startMenuPanel;
 
     public TextMeshProUGUI currentLevelText;
     public TextMeshProUGUI nextLevelText;
@@ -42,6 +47,17 @@ public class GameManager : MonoBehaviour
 
         int progress = numberOfPassesRings * 100 / FindObjectOfType<HelixManager>().numberOfRings;
         gameProgressSlide.value = progress;
+
+        if (Input.GetMouseButtonDown(0) && !isGameStarted)
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            gamePlayPanel.gameObject.SetActive(true);
+            startMenuPanel.SetActive(false);
+            isGameStarted = true;
+        }
 
         if (gameOver)
         {
