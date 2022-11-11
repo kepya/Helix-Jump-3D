@@ -7,11 +7,12 @@ public class HelixManager : MonoBehaviour
     public GameObject[] helixRings;
     public float ySpawn = 0 ;
     public float ringDistance = 5;
-    public int numberOfRings = 7;
+    public int numberOfRings;
 
     // Start is called before the first frame update
     void Start()
     {
+        numberOfRings = GameManager.currentLevelIndex + 5;
         //Spawn helix ring
         for (int i = 0; i < numberOfRings; i++)
         {
