@@ -21,6 +21,20 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, playerRb.velocity.z);   
+        playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, playerRb.velocity.z);
+        string materialNamae = collision.gameObject.GetComponent<MeshRenderer>().material.name;
+        if (materialNamae == "Safe (Instance)")
+        {
+
+        } else if (materialNamae == "UnSafe (Instance)")
+        {
+            Debug.Log("Game Over");
+            GameManager.gameOver = true;
+        }
+        else if (materialNamae == "LastRing (Instance)")
+        {
+            Debug.Log("Complete Level");
+            GameManager.levelComplete = true;
+        }
     }
 }
