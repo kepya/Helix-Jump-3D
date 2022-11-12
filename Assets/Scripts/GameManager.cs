@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         gameOver = false;
         levelComplete = false;
+        isGameStarted = false;
     }
 
     // Update is called once per frame
