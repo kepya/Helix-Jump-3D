@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static bool mute = false;
     public static bool isGameStarted = false;
     public static int currentLevelIndex;
+    public static int score = 0;
 
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI currentLevelText;
     public TextMeshProUGUI nextLevelText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
 
     public Slider gameProgressSlide;
 
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         levelComplete = false;
         isGameStarted = false;
+        highScoreText.text = "Best Score\n" + PlayerPrefs.GetInt("HighScore", 0);
     }
 
     // Update is called once per frame
@@ -49,12 +53,30 @@ public class GameManager : MonoBehaviour
         int progress = numberOfPassesRings * 100 / FindObjectOfType<HelixManager>().numberOfRings;
         gameProgressSlide.value = progress;
 
+        scoreText.text = score.ToString();
+
+        //For pc
         if (Input.GetMouseButtonDown(0) && !isGameStarted)
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 return;
             }
+
+            gamePlayPanel.gameObject.SetActive(true);
+            startMenuPanel.SetActive(false);
+            isGameStarted = true;
+        }
+
+        //For mobile
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !isGameStarted)
+        {
+
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                return;
+            }
+
             gamePlayPanel.gameObject.SetActive(true);
             startMenuPanel.SetActive(false);
             isGameStarted = true;
@@ -67,6 +89,11 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1"))
             {
+                if(score > PlayerPrefs.GetInt("HighScore", 0))
+                {
+                    PlayerPrefs.SetInt("HighScore", score);
+                }
+                score = 0;
                 SceneManager.LoadScene("Level1");
             }
         }
