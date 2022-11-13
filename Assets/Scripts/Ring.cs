@@ -18,9 +18,22 @@ public class Ring : MonoBehaviour
         if(transform.position.y > player.position.y)
         {
             GameManager.numberOfPassesRings++;
+            Debug.Log(GameManager.numberOfPassesRings);
             FindObjectOfType<AudioManager>().Play("whoosh");
             GameManager.score++;
             Destroy(gameObject);
+
+            if (GameManager.trackMode)
+            {
+                HelixManager helixManager = FindObjectOfType<HelixManager>();
+                GameObject[] helixRings = helixManager.helixRings;
+                
+                for (int i = 0; i < 2; i++)
+                {
+                    int index = Random.Range(0, helixRings.Length - 1);
+                    helixManager.SpawnRing(index);
+                }
+            }
         }   
     }
 }
