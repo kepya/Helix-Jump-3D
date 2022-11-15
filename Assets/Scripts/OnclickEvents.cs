@@ -55,12 +55,14 @@ public class OnclickEvents : MonoBehaviour
     
     public void TrackMode()
     {
+        GameManager.score = 0;
         GameManager.trackMode = true;
         gameManager.StartGame();
     } 
 
     public void RestartGame()
     {
+        GameManager.score = 0;
         GameManager.isRestartOrNextLevel = true;
         SceneManager.LoadScene("Level1");
     }
@@ -79,7 +81,9 @@ public class OnclickEvents : MonoBehaviour
     {
         GameManager.trackMode = false;
         GameManager.currentLevelIndex = 1;
-        PlayerPrefs.GetInt("currentLevelIndex", 1);
+        GameManager.score = 0;
+        PlayerPrefs.SetInt("currentLevelIndex", 1);
+        //PlayerPrefs.GetInt("currentLevelIndex", 1);
         gameManager.StartGame();
     } 
     

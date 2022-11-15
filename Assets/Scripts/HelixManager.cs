@@ -46,7 +46,7 @@ public class HelixManager : MonoBehaviour
             }
 
 
-            if (numberOfRings > 10)
+            if (numberOfRings > 10 && !GameManager.trackMode)
             {
                 Player player = FindObjectOfType<Player>();
                 Instantiate(player.transform, player.transform.position, player.transform.rotation);

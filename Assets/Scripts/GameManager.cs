@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         numberOfPassesRings = 0;
         Time.timeScale = 1;
         gameOver = false;
+        score = 0;
         levelComplete = false;
         isGameStarted = false;
         isSetUp = false;
