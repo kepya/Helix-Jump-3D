@@ -574,10 +574,13 @@ MonoBehaviour:
   - {fileID: 1927765302805248334, guid: 6cfe4867605a35a42943ea45bdaa2bcf, type: 3}
   - {fileID: 5163467039681684327, guid: e33f4a239dfecc546b8ef7d2b39652ef, type: 3}
   - {fileID: 8505291217919701935, guid: 9cd571614670ae142a8cbedf6d0b6445, type: 3}
-  - {fileID: 2138092537330524880, guid: 1ef66991542ee094f93e6298e77483dd, type: 3}
+  helixMoreRings:
+  - {fileID: 7892780092831291635, guid: 921423e343ad22a49aee08580f42293c, type: 3}
+  - {fileID: 1577170107083832200, guid: ca421aab44bdb0c4cb8e5374136b842b, type: 3}
   ySpawn: 0
   ringDistance: 5
   numberOfRings: 7
+  lastRing: {fileID: 2138092537330524880, guid: 1ef66991542ee094f93e6298e77483dd, type: 3}
 --- !u!4 &358352315
 Transform:
   m_ObjectHideFlags: 0
@@ -2267,6 +2270,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1991205755}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 728812736}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -2642,7 +2657,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.28250888, y: 0, z: 0, w: 0.9592647}
-  m_LocalPosition: {x: 0, y: 5.1, z: -13.16}
+  m_LocalPosition: {x: 0, y: 5.1, z: -24.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

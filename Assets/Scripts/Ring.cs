@@ -26,11 +26,10 @@ public class Ring : MonoBehaviour
             if (GameManager.trackMode)
             {
                 HelixManager helixManager = FindObjectOfType<HelixManager>();
-                GameObject[] helixRings = helixManager.helixRings;
                 
                 for (int i = 0; i < 2; i++)
                 {
-                    int index = Random.Range(0, helixRings.Length - 1);
+                    int index = Random.Range(0, helixManager.helixRings.Count);
                     helixManager.SpawnRing(index);
                 }
             }

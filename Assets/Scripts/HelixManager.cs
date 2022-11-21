@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class HelixManager : MonoBehaviour
 {
-    public GameObject[] helixRings;
+    public List<GameObject> helixRings;
+    public List<GameObject> helixMoreRings;
     public float ySpawn = 0 ;
     public float ringDistance = 5;
     public int numberOfRings;
     private int initRings = 5;
     private bool hasCompleteRing;
-
+    [SerializeField]
+    private GameObject lastRing;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class HelixManager : MonoBehaviour
             if (i==0)
                 SpawnRing(0);
             else
-                SpawnRing(Random.Range(1, helixRings.Length - 1));
+                SpawnRing(Random.Range(1, helixRings.Count));
         }
         
     }
@@ -40,7 +42,7 @@ public class HelixManager : MonoBehaviour
                 numberOfRings = GameManager.currentLevelIndex * initRings;
                 for (int i = 0; i < (numberOfRings - initRings - 1); i++)
                 {
-                    SpawnRing(Random.Range(1, helixRings.Length - 1));
+                    SpawnRing(Random.Range(1, helixRings.Count));
                 }
                 SpawnLastRing();
             }
@@ -50,15 +52,32 @@ public class HelixManager : MonoBehaviour
             {
                 Player player = FindObjectOfType<Player>();
                 Instantiate(player.transform, player.transform.position, player.transform.rotation);
+                helixRings.AddRange(helixMoreRings);
+            } else
+            {
+                if (GameManager.trackMode)
+                {
+                    if (numberOfRings > 20)
+                    {
+                        helixRings.AddRange(helixMoreRings);
+                    }
+                }
             }
 
             GameManager.isSetUp = true;
         }
     }
 
-    public void SpawnRing(int ringIndex)
+    public void SpawnRing(int ringIndex = 0)
     {
         GameObject go = Instantiate(helixRings[ringIndex], transform.up * ySpawn, Quaternion.identity);
+        go.transform.parent = transform;
+        ySpawn -= ringDistance;
+    }
+    
+    public void SpawnRing( GameObject lastRing = null)
+    {
+        GameObject go = Instantiate(lastRing, transform.up * ySpawn, Quaternion.identity);
         go.transform.parent = transform;
         ySpawn -= ringDistance;
     }
@@ -68,7 +87,7 @@ public class HelixManager : MonoBehaviour
         if (!GameManager.trackMode && !hasCompleteRing)
         {
             hasCompleteRing = true;
-            SpawnRing(helixRings.Length - 1);
+            SpawnRing(lastRing);
         }
     }
 }
