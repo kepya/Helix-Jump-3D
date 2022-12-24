@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -64,7 +65,6 @@ public class GameManager : MonoBehaviour
         nextLevelText.text = (currentLevelIndex + 1).ToString();
 
         int progress = numberOfPassesRings * 100 / FindObjectOfType<HelixManager>().numberOfRings;
-        Debug.Log("progress: " + progress);
         gameProgressSlide.value = progress;
 
         scoreText.text = score.ToString();
@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("trackMode: " + trackMode);
         if (trackMode)
         {
             currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex", 1);
@@ -130,6 +129,5 @@ public class GameManager : MonoBehaviour
             
         startMenuPanel.SetActive(false);
         isGameStarted = true;
-        Debug.Log("isGameStarted: " + isGameStarted);
     }
 }

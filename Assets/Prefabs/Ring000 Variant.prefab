@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring000 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8505291217919701935, guid: 9cd571614670ae142a8cbedf6d0b6445, type: 3}
+      propertyPath: m_TagString
+      value: Ring
+      objectReference: {fileID: 0}
     - target: {fileID: 9026073334473435413, guid: 9cd571614670ae142a8cbedf6d0b6445, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -89,7 +89,6 @@ public class OnclickEvents : MonoBehaviour
         GameManager.currentLevelIndex = 1;
         GameManager.score = 0;
         PlayerPrefs.SetInt("currentLevelIndex", 1);
-        //PlayerPrefs.GetInt("currentLevelIndex", 1);
         gameManager.StartGame();
     } 
     
