@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public Slider gameProgressSlide;
 
     public static int numberOfPassesRings;
+    public static bool hasTwoPlayer;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         levelComplete = false;
         isGameStarted = false;
         isSetUp = false;
+        hasTwoPlayer = false;
         highScoreText.text = "Best Score\n" + PlayerPrefs.GetInt("HighScore", 0);
 
         if (isRestartOrNextLevel)

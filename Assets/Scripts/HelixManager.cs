@@ -54,6 +54,7 @@ public class HelixManager : MonoBehaviour
                 Player player = FindObjectOfType<Player>();
                 Instantiate(player.transform, player.transform.position, player.transform.rotation);
                 helixRings.AddRange(helixMoreRings);
+                GameManager.hasTwoPlayer = true;
             } else
             {
                 if (GameManager.trackMode)
@@ -78,18 +79,24 @@ public class HelixManager : MonoBehaviour
         {
             if (GameManager.currentLevelIndex < 5)
             {
-                while (helix[helix.Length - 1].name.Contains(helixRing.name) && helix[helix.Length - 2].name.Contains(helixRing.name))
+                if (helix.Length > 2)
                 {
-                    ringIndex = Random.Range(1, helixRings.Count);
-                    helixRing = helixRings[ringIndex];
+                    while (helix[helix.Length - 1].name.Contains(helixRing.name) && helix[helix.Length - 2].name.Contains(helixRing.name))
+                    {
+                        ringIndex = Random.Range(1, helixRings.Count);
+                        helixRing = helixRings[ringIndex];
+                    }
                 }
             }
             else
             {
-                while (helix[helix.Length - 1].name.Contains(helixRing.name))
+                if (helix.Length > 1)
                 {
-                    ringIndex = Random.Range(1, helixRings.Count);
-                    helixRing = helixRings[ringIndex];
+                    while (helix[helix.Length - 1].name.Contains(helixRing.name))
+                    {
+                        ringIndex = Random.Range(1, helixRings.Count);
+                        helixRing = helixRings[ringIndex];
+                    }
                 }
             }
         } else
