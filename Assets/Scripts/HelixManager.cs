@@ -29,7 +29,6 @@ public class HelixManager : MonoBehaviour
             else
                 SpawnRing(Random.Range(1, helixRings.Count));
         }
-        
     }
 
     // Update is called once per frame
@@ -41,7 +40,7 @@ public class HelixManager : MonoBehaviour
                 SpawnLastRing();
             } else
             {
-                numberOfRings = (GameManager.currentLevelIndex) + initRings;
+                numberOfRings = (GameManager.currentLevelIndex + 2) + initRings;
                 for (int i = 0; i < (numberOfRings - initRings - 1); i++)
                 {
                     SpawnRing(Random.Range(1, helixRings.Count));
@@ -50,7 +49,7 @@ public class HelixManager : MonoBehaviour
             }
 
 
-            if (numberOfRings > 13 && !GameManager.trackMode)
+            if (GameManager.currentLevelIndex > 10 && !GameManager.trackMode)
             {
                 Player player = FindObjectOfType<Player>();
                 Instantiate(player.transform, player.transform.position, player.transform.rotation);
@@ -73,41 +72,41 @@ public class HelixManager : MonoBehaviour
     public void SpawnRing(int ringIndex = 0)
     {
         GameObject helixRing = helixRings[ringIndex];
-        if (GameManager.currentLevelIndex > 2)
-        {
-            GameObject[] helix = GameObject.FindGameObjectsWithTag("Ring");
+        GameObject[] helix = GameObject.FindGameObjectsWithTag("Ring");
 
-            if (helix.Length >= 2)
+        if (GameManager.isGameStarted && GameManager.currentLevelIndex > 2)
+        {
+            if (GameManager.currentLevelIndex < 5)
             {
-                if (GameManager.currentLevelIndex < 5)
+                while (helix[helix.Length - 1].name.Contains(helixRing.name) && helix[helix.Length - 2].name.Contains(helixRing.name))
                 {
-                    while (helix[helix.Length - 1].name.Contains(helixRing.name) && helix[helix.Length - 2].name.Contains(helixRing.name))
-                    {
-                        ringIndex = Random.Range(1, helixRings.Count);
-                        helixRing = helixRings[ringIndex];
-                    }
-                } else
-                {
-                    while (helix[helix.Length - 1].name.Contains(helixRing.name))
-                    {
-                        ringIndex = Random.Range(1, helixRings.Count);
-                        helixRing = helixRings[ringIndex];
-                    }
+                    ringIndex = Random.Range(1, helixRings.Count);
+                    helixRing = helixRings[ringIndex];
                 }
-            } else
+            }
+            else
             {
-                if (helix.Length == 1)
+                while (helix[helix.Length - 1].name.Contains(helixRing.name))
                 {
-                    while (helix[helix.Length - 1].name.Contains(helixRing.name))
-                    {
-                        ringIndex = Random.Range(1, helixRings.Count);
-                        helixRing = helixRings[ringIndex];
-                    }
+                    ringIndex = Random.Range(1, helixRings.Count);
+                    helixRing = helixRings[ringIndex];
+                }
+            }
+        } else
+        {
+            if (helix.Length > 3)
+            {
+                while (helix[helix.Length - 1].name.Contains(helixRing.name) && 
+                    helix[helix.Length - 2].name.Contains(helixRing.name) && 
+                    helix[helix.Length - 3].name.Contains(helixRing.name))
+                {
+                    ringIndex = Random.Range(1, helixRings.Count);
+                    helixRing = helixRings[ringIndex];
                 }
             }
         }
 
-        GameObject go = Instantiate(helixRing, transform.up * ySpawn, GameManager.currentLevelIndex > 3 ? helixRing.transform.rotation : Quaternion.identity);
+        GameObject go = Instantiate(helixRing, transform.up * ySpawn, (GameManager.isGameStarted && GameManager.currentLevelIndex > 3) ? helixRing.transform.rotation : Quaternion.identity);
         go.transform.parent = transform;
         ySpawn -= ringDistance;
     }
